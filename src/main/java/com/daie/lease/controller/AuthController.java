@@ -1,23 +1,19 @@
 package com.daie.lease.controller;
 
-import com.daie.lease.common.Result.Result;
+import com.daie.lease.common.result.Result;
 import com.daie.lease.model.pojo.User;
 import com.daie.lease.model.vo.CaptchaVo;
+import com.daie.lease.model.vo.LoginVo;
 import com.daie.lease.service.AuthService;
-import com.daie.lease.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("auth")
 public class AuthController {
 
-    private final UserService userService;
     private final AuthService authService;
 
-    public AuthController(UserService userService, AuthService authService) {
-        this.userService = userService;
+    public AuthController(AuthService authService) {
         this.authService = authService;
     }
 
@@ -26,9 +22,14 @@ public class AuthController {
         return Result.success(authService.getCaptcha());
     }
 
+    @PostMapping("signup")
+    public Result<User> signup(@RequestBody User user) {
+        return Result.success(authService.signup(user));
+    }
+
     @GetMapping("login")
-    public Result<User> login(String username, String password) throws Exception {
-        User loginUser = userService.login(username, password);
+    public Result<User> login(LoginVo loginVo) throws Exception {
+        User loginUser = authService.login(loginVo);
         assert loginUser != null;
         return Result.success(loginUser);
     }

@@ -1,4 +1,4 @@
-package com.daie.lease.common.Result;
+package com.daie.lease.common.result;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
