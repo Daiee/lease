@@ -7,7 +7,7 @@ import com.daie.lease.model.vo.LoginVo;
 public interface AuthService {
     CaptchaVo getCaptcha();
 
-    User login(LoginVo loginVo) throws Exception;
+    String login(LoginVo loginVo) throws Exception;
 
-    User signup(User user);
+    String signup(User user);
 }

@@ -17,20 +17,18 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @GetMapping("getCaptcha")
+    @GetMapping("captcha")
     public Result<CaptchaVo> getCaptcha() {
         return Result.success(authService.getCaptcha());
     }
 
     @PostMapping("signup")
-    public Result<User> signup(@RequestBody User user) {
+    public Result<String> signup(@RequestBody User user) {
         return Result.success(authService.signup(user));
     }
 
     @GetMapping("login")
-    public Result<User> login(LoginVo loginVo) throws Exception {
-        User loginUser = authService.login(loginVo);
-        assert loginUser != null;
-        return Result.success(loginUser);
+    public Result<String> login(LoginVo loginVo) throws Exception {
+        return Result.success(authService.login(loginVo));
     }
 }

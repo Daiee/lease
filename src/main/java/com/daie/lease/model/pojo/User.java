@@ -4,8 +4,12 @@ import com.daie.lease.common.enumeration.Gender;
 import com.daie.lease.common.enumeration.Role;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Comment;
+
+import java.util.List;
 
 @Entity
+@Comment("用户表")
 @Table
 @Data
 public class User {
@@ -29,4 +33,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviewList;
 }
