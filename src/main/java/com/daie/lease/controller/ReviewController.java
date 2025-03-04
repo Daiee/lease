@@ -1,5 +1,6 @@
 package com.daie.lease.controller;
 
+import com.daie.lease.service.ReviewService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,4 +11,7 @@ public class ReviewController {
     private final ReviewService reviewService;
 
 
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
 }
