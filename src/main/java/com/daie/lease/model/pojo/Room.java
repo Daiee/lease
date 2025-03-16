@@ -1,5 +1,6 @@
 package com.daie.lease.model.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Comment;
@@ -30,7 +31,8 @@ public class Room {
 
     private String phone;
 
-    @OneToMany(mappedBy = "room")
+    @JsonIgnore
+    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Review> reviewList;
 
 }
