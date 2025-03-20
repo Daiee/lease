@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Comment;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -36,4 +37,10 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Review> reviewList;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BrowseHistory> browseHistoryList;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserCollection> userCollectionList;
 }
