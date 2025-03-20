@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Comment;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -21,8 +22,6 @@ public class Room {
 
     private String roomDesc;
 
-    private String roomPic;
-
     private String address;
 
     private String latitude;
@@ -30,6 +29,10 @@ public class Room {
     private String longitude;
 
     private String phone;
+
+    private String coverUrl;
+
+    private BigDecimal price;
 
     @JsonIgnore
     @OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

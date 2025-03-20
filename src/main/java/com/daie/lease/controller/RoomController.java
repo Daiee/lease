@@ -1,8 +1,8 @@
 package com.daie.lease.controller;
 
 import com.daie.lease.common.result.Result;
-import com.daie.lease.model.dto.RoomSearchDto;
 import com.daie.lease.model.pojo.Room;
+import com.daie.lease.model.vo.RoomSearchVo;
 import com.daie.lease.service.RoomService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,11 +33,11 @@ public class RoomController {
         return Result.success(roomService.getRoomById(id));
     }
 
-//    // 搜索房源: 最低价格，最高价格，关键词
-//    @GetMapping("search")
-//    public Result<Page<Room>> researchRoomPage(RoomSearchDto roomSearchDto) {
-//        return Result.success(roomService.getRoomPage(roomSearchDto.pageNo, roomSearchDto.pageSize));
-//    }
+    // 搜索房源: 最低价格，最高价格，关键词
+    @GetMapping("search")
+    public Result<Page<Room>> researchRoomPage(RoomSearchVo roomSearchVo) {
+        return Result.success(roomService.SearchRoomPage(roomSearchVo));
+    }
 
 
 

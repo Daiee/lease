@@ -8,8 +8,10 @@ import com.daie.lease.common.utli.JwtUtil;
 import com.daie.lease.model.pojo.User;
 import com.daie.lease.model.vo.CaptchaVo;
 import com.daie.lease.model.vo.LoginVo;
+import com.daie.lease.model.vo.SignupVo;
 import com.daie.lease.repository.UserRepository;
 import com.daie.lease.service.AuthService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -62,8 +64,10 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String signup(User user) {
-        User save = userRepository.save(user);
-        return JwtUtil.createToken(save.getId(), save.getUsername());
+    public String signup(SignupVo user) {
+        User newUser = new User();
+        BeanUtils.copyProperties(user, newUser);
+        User save = userRepository.save(newUser);
+        return "signup:" + save.getUsername() + "success";
     }
 }

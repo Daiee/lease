@@ -2,12 +2,10 @@ package com.daie.lease.controller;
 
 import com.daie.lease.common.result.Result;
 import com.daie.lease.model.pojo.Review;
+import com.daie.lease.model.vo.ReviewFormVo;
 import com.daie.lease.service.ReviewService;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("review")
@@ -35,5 +33,30 @@ public class ReviewController {
                                                       @RequestParam(value = "id") Long roomId) {
        Page<Review> reviewPage = reviewService.getReviewPageByRoomId(pageNo, pageSize, roomId);
        return Result.success(reviewPage);
+    }
+
+    // 添加评价
+    @PostMapping("add")
+    public Result<Review> addReview(@RequestBody ReviewFormVo reviewFormVo) throws Exception {
+        return Result.success(reviewService.addReview(reviewFormVo));
+    }
+
+    // 获取评价
+    @GetMapping("get")
+    public Result<Review> getReview(@RequestParam Long id) throws Exception {
+        return Result.success(reviewService.getReviewById(id));
+    }
+
+    // 更新评价
+    @PutMapping("update")
+    public Result<Review> updateReview(@RequestParam Long id,
+                                       @RequestBody ReviewFormVo reviewFormVo) throws Exception {
+        return Result.success(reviewService.updateReview(id, reviewFormVo));
+    }
+
+    // 删除评价
+    @DeleteMapping("delete")
+    public Result<Boolean> deleteReview(@RequestParam Long id) {
+        return Result.success(reviewService.deleteReview(id));
     }
 }

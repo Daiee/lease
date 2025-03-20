@@ -2,7 +2,7 @@ package com.daie.lease.common.login;
 
 public class LoginUserHandler {
 
-    private static ThreadLocal<LoginUser> threadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<LoginUser> threadLocal = new ThreadLocal<>();
 
     public static LoginUser getLoginUser() {
         return threadLocal.get();

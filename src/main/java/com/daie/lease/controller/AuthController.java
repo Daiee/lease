@@ -1,9 +1,9 @@
 package com.daie.lease.controller;
 
 import com.daie.lease.common.result.Result;
-import com.daie.lease.model.pojo.User;
 import com.daie.lease.model.vo.CaptchaVo;
 import com.daie.lease.model.vo.LoginVo;
+import com.daie.lease.model.vo.SignupVo;
 import com.daie.lease.service.AuthService;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +23,17 @@ public class AuthController {
     }
 
     @PostMapping("signup")
-    public Result<String> signup(@RequestBody User user) {
+    public Result<String> signup(@RequestBody SignupVo user) {
         return Result.success(authService.signup(user));
     }
 
-    @GetMapping("login")
+    @PostMapping("login")
     public Result<String> login(LoginVo loginVo) throws Exception {
         return Result.success(authService.login(loginVo));
+    }
+
+    @PostMapping("logout")
+    public Result<String> logout() {
+        return Result.success("");
     }
 }
