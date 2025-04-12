@@ -1,11 +1,13 @@
 package com.daie.lease.service.impl;
 
 import com.daie.lease.model.pojo.Room;
+import com.daie.lease.model.vo.RoomPageVo;
 import com.daie.lease.model.vo.RoomSearchVo;
 import com.daie.lease.repository.RoomRepository;
 import com.daie.lease.service.RoomService;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -26,9 +28,13 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Page<Room> getRoomPage(int index, int size) {
+    public Page<RoomPageVo> getRoomPage(int index, int size) {
         PageRequest page = PageRequest.of(1, 10);
-        return roomRepository.findAll(page);
+        Page<Room> roomPage = roomRepository.findAll(page);
+        List<RoomPageVo> roomPageVoList = roomPage.stream()
+            .map(room -> new RoomPageVo(room.getId(), room.getRoomName(), room.getCoverUrl(), room.getAddress()))
+            .toList();
+        return new PageImpl<>(roomPageVoList, page, roomPage.getTotalElements());
     }
 
     @Override

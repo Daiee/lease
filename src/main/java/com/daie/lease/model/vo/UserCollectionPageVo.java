@@ -7,13 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoomPageVo {
+public class UserCollectionPageVo {
 
-    private Long id;
+    private Long roomId;
 
     private String roomName;
 
-    private String mainPicUrl;
+    private String coverUrl;
 
-    private String address;
 }

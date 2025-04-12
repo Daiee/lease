@@ -7,8 +7,8 @@ import com.daie.lease.common.utli.Base64Util;
 import com.daie.lease.common.utli.JwtUtil;
 import com.daie.lease.model.pojo.User;
 import com.daie.lease.model.vo.CaptchaVo;
-import com.daie.lease.model.vo.LoginVo;
-import com.daie.lease.model.vo.SignupVo;
+import com.daie.lease.model.vo.LoginDto;
+import com.daie.lease.model.vo.SignupDto;
 import com.daie.lease.repository.UserRepository;
 import com.daie.lease.service.AuthService;
 import org.springframework.beans.BeanUtils;
@@ -41,11 +41,11 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String login(LoginVo loginVo) throws Exception {
-        String username = loginVo.getUsername();
-        String password = loginVo.getPassword();
-        String captchaKey = loginVo.getCaptchaKey();
-        String captchaValue = loginVo.getCaptchaValue().toLowerCase();
+    public String login(LoginDto loginDto) throws Exception {
+        String username = loginDto.getUsername();
+        String password = loginDto.getPassword();
+        String captchaKey = loginDto.getCaptchaKey();
+        String captchaValue = loginDto.getCaptchaValue().toLowerCase();
 
         String value = Optional.ofNullable(stringRedisTemplate.opsForValue().get(captchaKey))
             .orElseThrow(RuntimeException::new)
@@ -64,7 +64,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String signup(SignupVo user) {
+    public String signup(SignupDto user) {
         User newUser = new User();
         BeanUtils.copyProperties(user, newUser);
         User save = userRepository.save(newUser);

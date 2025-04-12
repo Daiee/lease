@@ -1,16 +1,20 @@
 package com.daie.lease.controller;
 
+import cn.hutool.system.UserInfo;
+import com.daie.lease.common.login.LoginUser;
+import com.daie.lease.common.login.LoginUserHandler;
+import com.daie.lease.common.result.Result;
 import com.daie.lease.model.pojo.User;
+import com.daie.lease.model.vo.UserCollectionPageVo;
+import com.daie.lease.model.vo.UserInfoVo;
 import com.daie.lease.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("user")
 public class UserController {
-
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -18,13 +22,10 @@ public class UserController {
     }
 
     @GetMapping("/info")
-    public ResponseEntity<User> getUserById(@RequestParam Long id) {
-        try {
-            User user = userService.getUserById(id);
-            return ResponseEntity.ok(user);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    public Result<UserInfoVo> getUserById() throws Exception {
+        LoginUser loginUser = LoginUserHandler.getLoginUser();
+        UserInfoVo userInfo = userService.getUserInfoById(loginUser.getId());
+        return Result.success(userInfo);
     }
 
     @PostMapping("/star/add")
@@ -48,13 +49,9 @@ public class UserController {
     }
 
     @GetMapping("/star/page")
-    public ResponseEntity<Page<Long>> getUserCollection(@RequestParam Long userId, @RequestParam int pageNo, @RequestParam int pageSize) {
-        try {
-            Page<Long> roomIds = userService.getUserCollection(userId, pageNo, pageSize);
-            return ResponseEntity.ok(roomIds);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    public Result<Page<UserCollectionPageVo>> getUserCollection(@RequestParam Long userId, @RequestParam int pageNo, @RequestParam int pageSize) {
+        Page<UserCollectionPageVo> starPageVo = userService.getUserCollection(userId, pageNo, pageSize);
+        return Result.success(starPageVo);
     }
 
     @PostMapping("/{userId}/browse-history/{roomId}")

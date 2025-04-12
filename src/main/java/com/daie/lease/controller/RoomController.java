@@ -2,12 +2,15 @@ package com.daie.lease.controller;
 
 import com.daie.lease.common.result.Result;
 import com.daie.lease.model.pojo.Room;
+import com.daie.lease.model.vo.RoomPageVo;
 import com.daie.lease.model.vo.RoomSearchVo;
 import com.daie.lease.service.RoomService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("room")
@@ -22,8 +25,8 @@ public class RoomController {
 
     // 分页展示房间信息
     @GetMapping("page")
-    public Result<Page<Room>> getRoomPage(int pageNo, int pageSize) {
-        Page<Room> roomPage = roomService.getRoomPage(1, 10);
+    public Result<Page<RoomPageVo>> getRoomPage(int pageNo, int pageSize) {
+        Page<RoomPageVo> roomPage = roomService.getRoomPage(1, 10);
         return Result.success(roomPage);
     }
 

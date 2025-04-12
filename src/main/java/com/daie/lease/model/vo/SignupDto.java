@@ -1,6 +1,9 @@
 package com.daie.lease.model.vo;
 
-public class SignupVo {
+import lombok.Data;
+
+@Data
+public class SignupDto {
 
     private String username;
 

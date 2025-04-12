@@ -3,7 +3,7 @@ package com.daie.lease.model.vo;
 import lombok.Data;
 
 @Data
-public class LoginVo {
+public class LoginDto {
 
     private String username;
 
